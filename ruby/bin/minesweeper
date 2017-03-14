@@ -1,0 +1,18 @@
+#!/usr/bin/env ruby
+
+require_relative '../src/minesweeper.rb'
+require_relative '../src/minesweeper_helpers.rb'
+
+lines_to_fields(ARGF).each_with_index do |field, i|
+  puts "Field #{i+1}:\n"
+  (0..field.length-1).each do |y|
+    puts ((0..field.width-1).map do |x|
+      c = Coord.new(x, y)
+      if field.boom(c)
+        '*'
+      else
+        field.hint(c)
+      end
+    end).join('')
+  end
+end
